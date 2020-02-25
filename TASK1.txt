@@ -1,0 +1,62 @@
+create table Users
+(
+id serial primary key,
+Login varchar (100) unique not null,
+email varchar (100) unique not null,
+password integer not null,
+date_of_registration date not null
+);
+
+create table UserLog 
+(
+id integer primary key
+users_id integer references Users (id) not null,
+visitTime timestamp not null,
+sucsessful boolean not null
+);
+
+
+create table marshrut 
+(
+id serial primary key,
+tochkaA varchar not null,
+tochkaB varchar not null
+);
+ 
+create table bus 
+(
+id serial primary key,
+bus_id integer references marshrut (id) not null
+);
+
+create table driver 
+(
+id serial primary key,
+namee varchar not null,
+id_bus integer references bus (id) not null
+);
+
+create table jurnal 
+(
+id_buss integer references bus (id),
+id_driver integer references driver (id) not null,
+timeDriving date not null
+);
+
+
+insert into marshrut (id,tochkaA,tochkaB)values (1,'Vostok-5','Alamedin-1');
+insert into marshrut (id,tochkaA,tochkaB)values (2,'Orto-say','OSh-bazar');
+insert into marshrut (id,tochkaA,tochkaB)values (3,'8-7-5 Mikro.rai','BishkekPark');
+
+insert into bus (id,bus_id)values (48,1);
+insert into bus (id,bus_id)values (9,2);
+insert into bus (id,bus_id)values (36,3);
+
+insert into driver (id,namee,id_bus)values (6,'Григорий Лепс',9);
+insert into driver (id,namee,id_bus)values (5,'Алексей Чумаков',36);
+insert into driver (id,namee,id_bus)values (4,'Филлип Киркоров',48);
+
+insert into jurnal (id_buss,id_driver,timedriving)values(9,6,'1985.05.15');
+insert into jurnal (id_buss,id_driver,timedriving)values(36,5,'1999.04.18');
+insert into jurnal (id_buss,id_driver,timedriving)values(36,4,'2020.09.20');
+
